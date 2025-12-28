@@ -1,7 +1,8 @@
 use {
     crate::{
-        ScillaContext, ScillaResult,
         commands::CommandExec,
+        context::ScillaContext,
+        error::ScillaResult,
         misc::helpers::{
             Commission, SolAmount, build_and_send_tx, fetch_account_with_epoch, lamports_to_sol,
             read_keypair_from_path,
