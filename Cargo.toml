@@ -45,6 +45,8 @@ solana-nonce = "3"
 base64 = "0.22.1"
 bs58 = "0.5.1"
 solana-transaction-status = "3.1.4"
+ratatui = "0.30.0"
+crossterm = "0.29.0"
 
 [dev-dependencies]
 tempfile = "3.8"

@@ -5,6 +5,7 @@ use {
     },
     console::style,
 };
+use crate::{config::ScillaConfig, context::ScillaContext};
 
 pub mod commands;
 pub mod config;
@@ -13,31 +14,15 @@ pub mod context;
 pub mod error;
 pub mod misc;
 pub mod prompt;
+pub mod tui;
 pub mod ui;
 
 #[tokio::main(flavor = "multi_thread")]
-async fn main() -> ScillaResult<()> {
-    println!(
-        "{}",
-        style("⚡ Scilla — Hacking Through the Solana Matrix")
-            .bold()
-            .cyan()
-    );
+async fn main() -> anyhow::Result<()> {
+    let config = ScillaConfig::load().await?;
+    let ctx = ScillaContext::from_config(config)?;
 
-    let config = ScillaConfig::load()?;
-    let mut ctx = ScillaContext::try_from(config)?;
+    tui::run(ctx).await?;
 
-    loop {
-        let command = prompt_for_command()?;
-
-        let res = command.process_command(&mut ctx).await;
-
-        match res {
-            CommandFlow::Process(_) => continue,
-            CommandFlow::GoBack => continue,
-            CommandFlow::Exit => break,
-        }
-    }
-
-    Ok(CommandFlow::Exit)
+    Ok(())
 }
