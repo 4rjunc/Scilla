@@ -17,6 +17,15 @@ pub struct App {
     pub selected_index: usize,
     pub current_screen: Screen,
     pub ctx: ScillaContext,
+    pub input_buffer: String,
+    pub input_cursor: usize,
+    pub result_message: Option<ResultMessage>,
+}
+
+pub struct ResultMessage {
+    pub success: bool,
+    pub title: String,
+    pub body: String,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -27,6 +36,9 @@ pub enum Screen {
     StakeMenu,
     VoteMenu,
     ConfigMenu,
+    ShowVoteAccountForm,
+    Result,
+    Loading,
 }
 
 impl App {
@@ -36,7 +48,15 @@ impl App {
             selected_index: 0,
             current_screen: Screen::MainMenu,
             ctx,
+            input_buffer: String::new(),
+            input_cursor: 0,
+            result_message: None,
         }
+    }
+
+    pub fn clear_input(&mut self) {
+        self.input_buffer.clear();
+        self.input_cursor = 0;
     }
 
     pub fn menu_items(&self) -> Vec<&str> {
@@ -66,22 +86,17 @@ impl App {
 }
 
 pub async fn run(ctx: ScillaContext) -> Result<()> {
-    // Setup terminal
     enable_raw_mode()?;
     let mut stdout = io::stdout();
     execute!(stdout, EnterAlternateScreen)?;
     let backend = CrosstermBackend::new(stdout);
     let mut terminal = Terminal::new(backend)?;
 
-    // Create app
     let mut app = App::new(ctx);
 
-    // Main loop
     while app.running {
-        // Render
         terminal.draw(|frame| ui::render(frame, &app))?;
 
-        // Handle input (with timeout for future background tasks)
         if poll(Duration::from_millis(100))? {
             if let Event::Key(key) = read()? {
                 if key.kind == KeyEventKind::Press {
@@ -91,10 +106,8 @@ pub async fn run(ctx: ScillaContext) -> Result<()> {
         }
     }
 
-    // Restore terminal
     disable_raw_mode()?;
     execute!(terminal.backend_mut(), LeaveAlternateScreen)?;
 
     Ok(())
 }
-
