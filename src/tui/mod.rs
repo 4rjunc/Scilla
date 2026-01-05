@@ -8,6 +8,7 @@ use crossterm::{
     terminal::{EnterAlternateScreen, LeaveAlternateScreen, disable_raw_mode, enable_raw_mode},
 };
 use ratatui::{Terminal, backend::CrosstermBackend};
+use std::time::Instant;
 use std::{io, time::Duration};
 
 use crate::context::ScillaContext;
@@ -20,6 +21,8 @@ pub struct App {
     pub input_buffer: String,
     pub input_cursor: usize,
     pub result_message: Option<ResultMessage>,
+    pub wallet_balance: Option<f64>,
+    pub last_refresh: Instant,
 }
 
 pub struct ResultMessage {
@@ -51,7 +54,21 @@ impl App {
             input_buffer: String::new(),
             input_cursor: 0,
             result_message: None,
+            wallet_balance: None,
+            last_refresh: Instant::now(),
         }
+    }
+
+    pub async fn refresh_status(&mut self) {
+        if self.last_refresh.elapsed().as_secs() < 5 {
+            return;
+        }
+
+        if let Ok(balance) = self.ctx.rpc().get_balance(self.ctx.pubkey()).await {
+            self.wallet_balance = Some(balance as f64 / 1_000_000_000.0);
+        }
+
+        self.last_refresh = Instant::now();
     }
 
     pub fn clear_input(&mut self) {
@@ -94,6 +111,10 @@ pub async fn run(ctx: ScillaContext) -> Result<()> {
 
     let mut app = App::new(ctx);
 
+    if let Ok(balance) = app.ctx.rpc().get_balance(app.ctx.pubkey()).await {
+        app.wallet_balance = Some(balance as f64 / 1_000_000_000.0);
+    }
+
     while app.running {
         terminal.draw(|frame| ui::render(frame, &app))?;
 
@@ -104,6 +125,8 @@ pub async fn run(ctx: ScillaContext) -> Result<()> {
                 }
             }
         }
+
+        app.refresh_status().await;
     }
 
     disable_raw_mode()?;
@@ -111,4 +134,3 @@ pub async fn run(ctx: ScillaContext) -> Result<()> {
 
     Ok(())
 }
-

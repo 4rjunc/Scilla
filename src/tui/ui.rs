@@ -32,7 +32,20 @@ fn render_main_content(frame: &mut Frame, app: &App, area: Rect) {
     }
 }
 
-fn render_status_bar(frame: &mut Frame, _app: &App, area: Rect) {
+fn render_status_bar(frame: &mut Frame, app: &App, area: Rect) {
+    let balance_str = match app.wallet_balance {
+        Some(bal) => format!("{:.4} SOL", bal),
+        None => "--- SOL".to_string(),
+    };
+
+    // Truncate wallet address for display
+    let pubkey_str = app.ctx.pubkey().to_string();
+    let short_pubkey = format!(
+        "{}...{}",
+        &pubkey_str[..4],
+        &pubkey_str[pubkey_str.len() - 4..]
+    );
+
     let status = Paragraph::new(Line::from(vec![
         Span::styled(
             "⚡ SCILLA",
@@ -40,15 +53,11 @@ fn render_status_bar(frame: &mut Frame, _app: &App, area: Rect) {
                 .fg(Color::Cyan)
                 .add_modifier(Modifier::BOLD),
         ),
-        Span::raw("          "),
-        Span::styled("Epoch: ", Style::default().fg(Color::Gray)),
-        Span::styled("---", Style::default().fg(Color::White)),
-        Span::raw("  │  "),
-        Span::styled("Slot: ", Style::default().fg(Color::Gray)),
-        Span::styled("---", Style::default().fg(Color::White)),
+        Span::raw("    "),
+        Span::styled(&short_pubkey, Style::default().fg(Color::Gray)),
         Span::raw("  │  "),
         Span::styled("Balance: ", Style::default().fg(Color::Gray)),
-        Span::styled("--- SOL", Style::default().fg(Color::Green)),
+        Span::styled(balance_str, Style::default().fg(Color::Green)),
         Span::raw("  │  "),
         Span::styled("devnet", Style::default().fg(Color::Yellow)),
     ]))
