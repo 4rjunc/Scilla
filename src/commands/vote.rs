@@ -36,6 +36,18 @@ pub enum VoteCommand {
     GoBack,
 }
 
+pub struct VoteAccountInfo {
+    pub balance_sol: f64,
+    pub validator_identity: Pubkey,
+    pub vote_authority: Pubkey,
+    pub withdraw_authority: Pubkey,
+    pub credits: u64,
+    pub commission: u8,
+    pub root_slot: Option<u64>,
+    pub timestamp: String,
+    pub timestamp_slot: u64,
+}
+
 impl VoteCommand {
     pub fn spinner_msg(&self) -> &'static str {
         match self {
@@ -402,22 +414,22 @@ async fn close_vote_account(
     Ok(())
 }
 
-async fn process_fetch_vote_account(
+pub async fn process_fetch_vote_account(
     ctx: &ScillaContext,
     vote_account_pubkey: &Pubkey,
-) -> anyhow::Result<()> {
+) -> anyhow::Result<String> {
     let vote_account = ctx
         .rpc()
         .get_account(vote_account_pubkey)
         .await
-        .map_err(|_| anyhow!("{vote_account_pubkey} account does not exist"))?;
+        .map_err(|_| anyhow::anyhow!("{} account does not exist", vote_account_pubkey))?;
 
     if vote_account.owner != solana_vote_interface::program::id() {
         bail!("{vote_account_pubkey} is not a vote account");
     }
 
     let vote_state = VoteStateV4::deserialize(&vote_account.data, vote_account_pubkey)
-        .map_err(|_| anyhow!("Account data could not be deserialized to vote state"))?;
+        .map_err(|_| anyhow::anyhow!("Account data could not be deserialized to vote state"))?;
 
     let balance_sol = lamports_to_sol(vote_account.lamports);
 
@@ -437,49 +449,24 @@ async fn process_fetch_vote_account(
         .map(|(_, v)| v.to_string())
         .unwrap_or_else(|| vote_state.node_pubkey.to_string());
 
-    let mut table = Table::new();
-    table
-        .load_preset(UTF8_FULL)
-        .set_header(vec![
-            Cell::new("Field")
-                .add_attribute(comfy_table::Attribute::Bold)
-                .fg(comfy_table::Color::Cyan),
-            Cell::new("Value")
-                .add_attribute(comfy_table::Attribute::Bold)
-                .fg(comfy_table::Color::Cyan),
-        ])
-        .add_row(vec![
-            Cell::new("Account Balance"),
-            Cell::new(format!("{balance_sol} SOL")),
-        ])
-        .add_row(vec![
-            Cell::new("Validator Identity"),
-            Cell::new(vote_state.node_pubkey),
-        ])
-        .add_row(vec![Cell::new("Vote Authority"), Cell::new(vote_authority)])
-        .add_row(vec![
-            Cell::new("Withdraw Authority"),
-            Cell::new(vote_state.authorized_withdrawer),
-        ])
-        .add_row(vec![Cell::new("Credits"), Cell::new(vote_state.credits())])
-        .add_row(vec![
-            Cell::new("Commission"),
-            Cell::new(format!(
-                "{}%",
-                vote_state.inflation_rewards_commission_bps / 100
-            )),
-        ])
-        .add_row(vec![Cell::new("Root Slot"), Cell::new(root_slot)])
-        .add_row(vec![
-            Cell::new("Recent Timestamp"),
-            Cell::new(format!(
-                "{} from slot {}",
-                timestamp, vote_state.last_timestamp.slot
-            )),
-        ]);
-
-    println!("\n{}", style("VOTE ACCOUNT INFORMATION").green().bold());
-    println!("{table}");
-
-    Ok(())
+    let info = format!(
+        "Balance:          {} SOL\n\
+         Validator:        {}\n\
+         Vote Authority:   {}\n\
+         Withdraw Auth:    {}\n\
+         Credits:          {}\n\
+         Commission:       {}%\n\
+         Root Slot:        {}\n\
+         Timestamp:        {} (slot {})",
+        balance_sol,
+        vote_state.node_pubkey,
+        vote_authority,
+        vote_state.authorized_withdrawer,
+        vote_state.credits(),
+        vote_state.inflation_rewards_commission_bps / 100,
+        root_slot,
+        timestamp,
+        vote_state.last_timestamp.slot
+    );
+    Ok(info)
 }
