@@ -1,589 +1,411 @@
 
-# SCILLA TUI - Improved UI/UX Design
+# SCILLA TUI - Simplified Design (lazygit-inspired)
 
-## Overview of Improvements
+## Design Philosophy
 
-### Key Enhancements:
-- **Visual Hierarchy**: Color-coded sections, icons, and better spacing
-- **Contextual Help**: Inline help text and command previews
-- **Breadcrumb Navigation**: Always know where you are
-- **Quick Actions**: Frequently used commands accessible via shortcuts
-- **Smart Defaults**: Pre-filled values based on context
-- **Progress Indicators**: Better feedback for long operations
-- **Search & Filter**: Quick command finder
-- **History**: Recently used commands for faster access
-- **Validation**: Real-time input validation with helpful errors
+- **Number keys (1-5)** to select options instantly
+- **Single letter commands** for common actions
+- **Minimal visual noise** - clean, scannable interface
+- **Zero cognitive load** - obvious what each key does
+- **Flat navigation** - less nesting, faster access
 
 ---
 
-## Main Dashboard (Enhanced)
+## Main Menu
+
+### Scilla
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Epoch: 234 │ Slot: 123,456,789 │ Balance: 12.5 SOL │ TPS: 2,341 │ Health: ●│
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─ Quick Actions ─────────────────────┐  ┌─ Recent Commands ──────────┐   │
-│  │                                      │  │                             │   │
-│  │  [1] Create Vote Account             │  │  • Create Vote Account      │   │
-│  │  [2] Delegate Stake                  │  │  • View Balance             │   │
-│  │  [3] View Account Balance            │  │  • Switch Cluster           │   │
-│  │  [4] Check Validator Status          │  │                             │   │
-│  │                                      │  └─────────────────────────────┘   │
-│  └──────────────────────────────────────┘                                    │
-│                                                                              │
-│  ┌─ Command Groups ──────────────────────────────────────────────────────┐   │
-│  │                                                                        │   │
-│  │   ▸ 💰 Account Management              Manage wallets and balances    │   │
-│  │   ▸ 🌐 Cluster Operations              Switch networks and endpoints  │   │
-│  │   ▸ 🔒 Stake Management                Delegate and manage stakes     │   │
-│  │   ▸ 🗳️  Vote Account                    Validator voting operations   │   │
-│  │   ▸ ⚙️  Configuration                   System settings and keys       │   │
-│  │   ▸ 📊 Monitoring                      View stats and health          │   │
-│  │                                                                        │   │
-│  └────────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [1-9] Quick Action  [↑↓] Navigate  [Enter] Select  [/] Search  [h] Help [q] Quit │
-└──────────────────────────────────────────────────────────────────────────────┘
+⚡ Scilla — Hacking Through the Solana Matrix
+Using Scilla config path : "/Users/arjunc/.config/scilla.toml"
+? Choose a command group:
+> Account
+  Cluster
+  Stake
+  Vote
+  ScillaConfig
+  Exit
+[↑↓ to move, enter to select, type to filter]
 ```
 
-**Improvements:**
-- Icons for visual scanning
-- Quick actions with number shortcuts
-- Recent commands for efficiency
-- Better status indicators with real TPS and health
-- Descriptive text for each command group
-
----
-
-## Quick Search/Filter (NEW)
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home                                                                        │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─ Search Commands ────────────────────────────────────────────────────┐    │
-│  │                                                                       │    │
-│  │  🔍 vote█                                                             │    │
-│  │                                                                       │    │
-│  │  ┌─ Matching Commands (3) ──────────────────────────────────────┐    │    │
-│  │  │                                                               │    │    │
-│  │  │  > 🗳️  Create Vote Account         [Vote Account]             │    │    │
-│  │  │    🗳️  Show Vote Account Info      [Vote Account]             │    │    │
-│  │  │    🗳️  Update Vote Account         [Vote Account]             │    │    │
-│  │  │                                                               │    │    │
-│  │  └───────────────────────────────────────────────────────────────┘    │    │
-│  │                                                                       │    │
-│  └───────────────────────────────────────────────────────────────────────┘    │
-│                                                                              │
-│  💡 Tip: Use fuzzy search - try "cva" for "Create Vote Account"              │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [Type] Search  [↑↓] Navigate  [Enter] Select  [Esc] Cancel                  │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌─ LAZY-SCILLA ──────────────────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ 8EwoWotLUEipf2rAtje738n6NX3LkhGKbtBCx9Z4RBDb           │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                            [Main Menu]     │
+│  1  Account                                                                │
+│  2  Cluster                                                                │
+│  3  Stake                                                                  │
+│  4  Vote                                                                   │
+│  5  Scilla Config                                                          │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-n] select  [\] search  [n] network [esc] back  [?] help  [q] quit       │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**New Feature:**
-- Fuzzy search for quick command access
-- Shows which group commands belong to
-- Contextual tips for power users
+**Key Features:**
+- Just press `1` to select `Account`. Which move to account realted options - no Enter needed
+- `n` changes network from devnet -> mainnet -> testnet -> devnet .. repeat
+- `?` displays help box
+- `\` display a search bar to search commands
+- All primary actions visible on one screen
+- Clean, minimal status bar
 
----
 
-## Submenu with Breadcrumbs
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account                                                         │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─ Vote Account Operations ─────────────────────────────────────────────┐   │
-│  │                                                                        │   │
-│  │   > Create Vote Account                Create a new vote account      │   │
-│  │     Show Vote Account Info             Display account details        │   │
-│  │     Update Vote Commission             Modify commission rate         │   │
-│  │     Withdraw from Vote Account         Extract funds                  │   │
-│  │     Close Vote Account                 Permanently close account      │   │
-│  │                                                                        │   │
-│  │   ← Back to Main Menu                                                 │   │
-│  │                                                                        │   │
-│  └────────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-│  ℹ️  Vote accounts are required for validators to participate in consensus   │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [↑↓] Navigate  [Enter] Select  [Backspace] Back  [h] Help  [q] Quit         │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Improvements:**
-- Breadcrumb navigation shows current location
-- Descriptions for each action
-- Contextual information panel
-- Backspace for quick back navigation
-
----
-
-## Enhanced Form with Validation
+## Account
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account > Create Vote Account                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│    ┌─ Create Vote Account ──────────────────────────────────────────────┐    │
-│    │                                                               [3/4] │    │
-│    │  Vote Keypair:       ✓ ./vote-keypair.json                         │    │
-│    │                                                                     │    │
-│    │  Identity Keypair:   ✓ ./validator-keypair.json                    │    │
-│    │                                                                     │    │
-│    │  Withdraw Authority: [./withdraw-key█                ]             │    │
-│    │                       ┌─────────────────────────────┐              │    │
-│    │                       │ ./withdraw-keypair.json     │              │    │
-│    │                       │ ./withdraw-backup.json      │              │    │
-│    │                       │ ./cold-wallet.json          │              │    │
-│    │                       └─────────────────────────────┘              │    │
-│    │                                                                     │    │
-│    │  Commission (%):     [0                             ]              │    │
-│    │                       ℹ️  0-100, typical: 5-10%                     │    │
-│    │                                                                     │    │
-│    │  💡 Tip: Use a separate cold wallet for withdraw authority         │    │
-│    │                                                                     │    │
-│    │  ┌─ Estimated Cost ─────────────────────────────────────────────┐  │    │
-│    │  │  Rent: ~0.0282 SOL │ Transaction: ~0.00001 SOL              │  │    │
-│    │  └────────────────────────────────────────────────────────────────┘  │    │
-│    │                                                                     │    │
-│    │               [Submit]            [Cancel]                          │    │
-│    │                                                                     │    │
-│    └─────────────────────────────────────────────────────────────────────┘    │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [Tab] Next/Autocomplete  [Shift+Tab] Previous  [Enter] Submit  [Esc] Cancel │
-└──────────────────────────────────────────────────────────────────────────────┘
+> Choose a command group: Account
+? Account Command:
+> Fetch account
+  Check balance
+  Transfer SOL
+  Request airdrop
+  Check transaction confirmation
+  View largest accounts
+  View nonce account
+[↑↓ to move, enter to select, type to filter]
 ```
 
-**Improvements:**
-- Progress indicator (3/4 fields completed)
-- Checkmarks for completed fields
-- Inline help text with typical values
-- Cost estimation before submitting
-- Better visual separation
-- Contextual tips
-
----
-
-## Form Validation Error
-
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account > Create Vote Account                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│    ┌─ Create Vote Account ──────────────────────────────────────────────┐    │
-│    │                                                               [2/4] │    │
-│    │  Vote Keypair:       ✓ ./vote-keypair.json                         │    │
-│    │                                                                     │    │
-│    │  Identity Keypair:   [./invalid-key.txt                 ]          │    │
-│    │                       ❌ Invalid keypair file format                │    │
-│    │                       💡 Must be a valid JSON keypair file          │    │
-│    │                                                                     │    │
-│    │  Withdraw Authority: [                              ]              │    │
-│    │                                                                     │    │
-│    │  Commission (%):     [150                           ]              │    │
-│    │                       ❌ Must be between 0-100                      │    │
-│    │                                                                     │    │
-│    └─────────────────────────────────────────────────────────────────────┘    │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [Tab] Next Field  [Enter] Accept  [Esc] Cancel                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌─ LAZY-SCILLA ──────────────────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ 8EwoWotLUEipf2rAtje738n6NX3LkhGKbtBCx9Z4RBDb           │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                            [Account Menu]  │
+│  1  Fetch Account                                                          │
+│  2  Check Balance                                                          │
+│  3  Transfer SOL                                                           │
+│  4  Request Airdrop                                                        │
+│  5  Check transaction confirmation                                         │
+│  6  View largest accounts                                                  │
+│  7  View nonce account                                                     │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-n] select  [\] search  [n] network [esc] back  [?] help  [q] quit       │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
-**New Feature:**
-- Real-time validation with clear error messages
-- Helpful suggestions to fix errors
-- Visual indicators (✓ ❌) for field status
+- `esc` to back to previous screen
 
----
-
-## Loading State with Progress
+### Fetch Account
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account > Create Vote Account                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│                                                                              │
-│                     ┌───────────────────────────────────┐                    │
-│                     │  ⏳ Creating Vote Account...      │                    │
-│                     ├───────────────────────────────────┤                    │
-│                     │                                   │                    │
-│                     │  [████████████░░░░░░] 65%         │                    │
-│                     │                                   │                    │
-│                     │  ✓ Validating keypairs            │                    │
-│                     │  ✓ Checking account balance       │                    │
-│                     │  ⟳ Sending transaction...         │                    │
-│                     │  ○ Confirming on-chain            │                    │
-│                     │                                   │                    │
-│                     │  Estimated time: 8s remaining     │                    │
-│                     │                                   │                    │
-│                     └───────────────────────────────────┘                    │
-│                                                                              │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  ⏳ Processing... Please wait                                                │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Improvements:**
-- Multi-step progress indicator
-- Shows which steps are complete/in-progress
-- Time estimate for better UX
-- Can't be cancelled accidentally
-
----
-
-## Success Screen with Actions
+> Choose a command group: Account
+> Account Command: Fetch account
+? Enter Pubkey:
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account > Create Vote Account                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│                     ┌───────────────────────────────────────────┐            │
-│                     │  ✅ Vote Account Created Successfully!    │            │
-│                     ├───────────────────────────────────────────┤            │
-│                     │                                           │            │
-│                     │  Vote Account:                            │            │
-│                     │  GxN9...kR2p                              │            │
-│                     │  [Copy]                                   │            │
-│                     │                                           │            │
-│                     │  Transaction Signature:                   │            │
-│                     │  5xK3j8fL...h2s9mNp                       │            │
-│                     │  [Copy] [View on Explorer]                │            │
-│                     │                                           │            │
-│                     │  ┌─ Details ────────────────────────┐    │            │
-│                     │  │  Commission: 5%                  │    │            │
-│                     │  │  Rent Paid: 0.0282 SOL           │    │            │
-│                     │  │  Status: Active                  │    │            │
-│                     │  └──────────────────────────────────┘    │            │
-│                     │                                           │            │
-│                     │  ┌─ Next Steps ──────────────────────┐   │            │
-│                     │  │  [1] Delegate stake to account    │   │            │
-│                     │  │  [2] View account details         │   │            │
-│                     │  │  [3] Return to main menu          │   │            │
-│                     │  └───────────────────────────────────┘   │            │
-│                     │                                           │            │
-│                     └───────────────────────────────────────────┘            │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [1-3] Quick Action  [Enter] Continue  [c] Copy  [e] Explorer                │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
 
-**Improvements:**
-- Actionable next steps
-- Copy buttons for addresses/signatures
-- Link to explorer
-- Transaction details visible
-- Suggested workflows for efficiency
-
----
-
-## Error Screen with Recovery
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > Vote Account > Create Vote Account                                   │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│                     ┌───────────────────────────────────────────┐            │
-│                     │  ❌ Transaction Failed                     │            │
-│                     ├───────────────────────────────────────────┤            │
-│                     │                                           │            │
-│                     │  Error: Insufficient funds                │            │
-│                     │                                           │            │
-│                     │  Required: 0.0282 SOL (rent)              │            │
-│                     │  Available: 0.0100 SOL                    │            │
-│                     │  Needed: 0.0182 SOL more                  │            │
-│                     │                                           │            │
-│                     │  ┌─ Suggested Actions ───────────────┐   │            │
-│                     │  │                                    │   │            │
-│                     │  │  [1] Request airdrop (devnet)     │   │            │
-│                     │  │  [2] Check account balance        │   │            │
-│                     │  │  [3] Retry transaction            │   │            │
-│                     │  │  [4] Cancel and return            │   │            │
-│                     │  │                                    │   │            │
-│                     │  └────────────────────────────────────┘   │            │
-│                     │                                           │            │
-│                     │  📋 Error copied to clipboard             │            │
-│                     │                                           │            │
-│                     └───────────────────────────────────────────┘            │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [1-4] Quick Action  [r] Retry  [Esc] Back                                   │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-**Improvements:**
-- Clear error explanation
-- Specific numbers showing the problem
-- Actionable recovery suggestions
-- Context-aware help (airdrop on devnet)
-- Auto-copy error for support
-
----
-
-## Help Overlay (NEW)
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA - Keyboard Shortcuts                                    [Press h or Esc to close] │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─ Navigation ──────────────┐  ┌─ Actions ───────────────────┐             │
-│  │                           │  │                              │             │
-│  │  ↑/k       Move up        │  │  Enter     Select/Confirm    │             │
-│  │  ↓/j       Move down      │  │  Space     Toggle/Select     │             │
-│  │  ←/h       Go back        │  │  Esc       Cancel/Back       │             │
-│  │  →/l       Go forward     │  │  q         Quit application  │             │
-│  │  Home      Jump to top    │  │  c         Copy to clipboard │             │
-│  │  End       Jump to bottom │  │  e         Open in explorer  │             │
-│  │                           │  │                              │             │
-│  └───────────────────────────┘  └──────────────────────────────┘             │
-│                                                                              │
-│  ┌─ Quick Access ───────────────────────────────────────────────────────┐    │
-│  │                                                                       │    │
-│  │  /          Search commands         Ctrl+R    Refresh status         │    │
-│  │  1-9        Quick actions           Ctrl+L    View logs              │    │
-│  │  Tab        Next field/Autocomplete Ctrl+H    Command history        │    │
-│  │  Shift+Tab  Previous field          ?         Show this help         │    │
-│  │                                                                       │    │
-│  └───────────────────────────────────────────────────────────────────────┘    │
-│                                                                              │
-│  💡 Tip: Most commands support both arrow keys and vim-style (hjkl) navigation│
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [h] or [Esc] Close Help                                                     │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-**New Feature:**
-- Comprehensive keyboard shortcuts
-- Always accessible via 'h' key
-- Vim-style navigation support
-
----
-
-## Command History (NEW)
-
-```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ⚡ SCILLA v1.2.0              8vDg..Er6k | devnet │ Connected ● │ 12:34:56  │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  Home > History                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│  ┌─ Command History (Last 10) ───────────────────────────────────────────┐   │
-│  │                                                                        │   │
-│  │  12:32  ✓  Create Vote Account          GxN9...kR2p                   │   │
-│  │  12:15  ✓  Check Balance                12.5 SOL                      │   │
-│  │  12:10  ✓  Switch Cluster               devnet                        │   │
-│  │  11:45  ❌ Create Stake Account          Error: Insufficient funds     │   │
-│  │  11:30  ✓  Request Airdrop              2.0 SOL                       │   │
-│  │                                                                        │   │
-│  │  > Select a command to view details or re-run                         │   │
-│  │                                                                        │   │
-│  └────────────────────────────────────────────────────────────────────────┘   │
-│                                                                              │
-├──────────────────────────────────────────────────────────────────────────────┤
-│  [↑↓] Navigate  [Enter] View Details  [r] Re-run  [d] Delete  [Esc] Back    │
-└──────────────────────────────────────────────────────────────────────────────┘
-```
-
-**New Feature:**
-- View command history
-- Re-run previous commands
-- See success/failure status
-
----
-
-## Updated Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                         Enhanced App State                      │
-├─────────────────────────────────────────────────────────────────┤
-│  current_screen: Screen (enum with breadcrumb trail)            │
-│  selected_index: usize                                          │
-│  form_data: HashMap<String, FormField> (with validation state)  │
-│  cluster_info: ClusterInfo (auto-refresh every 5s)              │
-│  wallet_balance: u64 (auto-refresh every 5s)                    │
-│  search_query: String (for fuzzy search)                        │
-│  command_history: Vec<CommandRecord> (last 50 commands)         │
-│  notifications: Vec<Notification> (toast messages)              │
-│  help_visible: bool (overlay state)                             │
-└─────────────────────────────────────────────────────────────────┘
+┌─ LAZY-SCILLA ──────────────────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ 8EwoWotLUEipf2rAtje738n6NX3LkhGKbtBCx9Z4RBDb           │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                            [Account Menu > Fetch Account]  │
+│                                                                            │
+│                                                                            │
+│                               Account Address:                             │
+│                                                                            │
+│           ┌────────────────────────────────────────────────────────────┐   │
+│           │_                                                           │   │
+│           └────────────────────────────────────────────────────────────┘   │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-n] select  [\] search  [n] network [esc] back  [?] help  [q] quit       │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Enhanced Event Loop
+## Create Vote Account
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Event-Driven Architecture                    │
-├─────────────────────────────────────────────────────────────────┤
-│  1. Poll keyboard events (with debounce)                        │
-│  2. Poll background refresh tasks                               │
-│  3. Process validation events (async)                           │
-│  4. Update state with proper error handling                     │
-│  5. Render UI with dirty-checking (only changed regions)        │
-│  6. Handle notifications/toasts                                 │
-│  7. Repeat (60 FPS target)                                      │
-└─────────────────────────────────────────────────────────────────┘
+┌─ SCILLA > Create Vote Account ─────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ 8EwoWotLUEipf2rAtje738n6NX3LkhGKbtBCx9Z4RBDb           │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Vote Keypair                                                              │
+│  > ./vote-keypair.json                                                     │
+│                                                                            │
+│  Identity Keypair                                                          │
+│  > ./validator-keypair.json                                                │
+│                                                                            │
+│  Withdraw Authority                                                        │
+│  > ./withdraw-keypair.json                                                 │
+│                                                                            │
+│  Commission (%)                                                            │
+│  > 5                                                                       │
+│                                                                            │
+│  Cost: ~0.0282 SOL                                                         │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [Enter] submit  [Esc] back  [Tab] next field                              │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
+
+**Key Features:**
+- One field at a time focus
+- Smart defaults pre-filled
+- Minimal instructions
 
 ---
 
-## Expanded State Machine
+## Processing
 
 ```
-        ┌──────────┐
-        │Dashboard │ ◄──────────────────┐
-        │(enhanced)│                    │
-        └────┬─────┘                    │
-             │                          │
-     ┌───────┼───────┬───────────┐      │
-     │       │       │           │      │
-     ▼       ▼       ▼           ▼      │
-┌────────┐┌──────┐┌────────┐┌─────────┐│
-│ Search ││ Help ││History ││Submenu  ││
-│(fuzzy) ││(ovly)││(list)  ││(groups) ││
-└────────┘└──────┘└────────┘└────┬────┘│
-                                 │     │
-             Esc ────────────────┘     │
-             Enter                     │
-                  ▼                    │
-             ┌─────────┐               │
-             │  Form   │ ──── Esc ─────┤
-             │(validtn)│               │
-             └────┬────┘               │
-                  │ Submit             │
-                  ▼                    │
-             ┌─────────┐               │
-             │ Loading │               │
-             │(progress)               │
-             └────┬────┘               │
-                  │                    │
-         ┌────────┴────────┐           │
-         ▼                 ▼           │
-    ┌─────────┐       ┌─────────┐     │
-    │ Success │       │  Error  │     │
-    │(actions)│       │(recovery)      │
-    └────┬────┘       └────┬────┘     │
-         │                 │           │
-         └─────────┬───────┘           │
-                   │ Enter             │
-                   └───────────────────┘
+┌─ SCILLA > Create Vote Account ─────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│                                                                            │
+│                                                                            │
+│                        Creating vote account...                            │
+│                        [████████████░░░░] 75%                              │
+│                                                                            │
+│                        Confirming transaction                              │
+│                                                                            │
+│                                                                            │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ Processing...                                                              │
+└────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## Summary of UX Improvements
+## Success
 
-### 1. **Discoverability**
-- Icons and descriptions make features obvious
-- Search helps users find commands quickly
-- Contextual tips guide new users
+```
+┌─ SCILLA > Create Vote Account ─────────────────────────────────────────────┐
+│ devnet │ 12.2 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Success!                                                                  │
+│                                                                            │
+│  Vote Account                                                              │
+│  GxN9rK2pB3vQ8fL5hJ4mW7sT1zC6yD2xE8uF9gH0iA                               │
+│                                                                            │
+│  Transaction                                                               │
+│  5xK3j8fLmNp9qRs2tUv4wXy6zA1bC7dE3fG5hI8jK0lM                             │
+│                                                                            │
+│  What next?                                                                │
+│  1  Delegate stake                                                         │
+│  2  View details                                                           │
+│  3  Back to menu                                                           │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-3] select  [c] copy address  [Esc] back                                │
+└────────────────────────────────────────────────────────────────────────────┘
+```
 
-### 2. **Efficiency**
-- Quick actions with number shortcuts
-- Command history for repeated tasks
-- Smart defaults reduce typing
-
-### 3. **Feedback**
-- Progress indicators for long operations
-- Real-time validation prevents errors
-- Clear success/error states
-
-### 4. **Navigation**
-- Breadcrumbs show current location
-- Multiple back options (Esc, Backspace, ←)
-- Help always accessible
-
-### 5. **Error Prevention & Recovery**
-- Validation before submission
-- Cost estimation prevents surprises
-- Clear error messages with solutions
-
-### 6. **Visual Design**
-- Icons for quick scanning
-- Color-coded status (●)
-- Better spacing and hierarchy
-
-### 7. **Accessibility**
-- Vim-style navigation support
-- Screen reader friendly (with proper labels)
-- Keyboard-first design
+**Key Features:**
+- Numbered next actions
+- Copy with single key `c`
+- No extra noise
 
 ---
 
-## Implementation Priority
+## Error
 
-### Phase 1 (MVP)
-- Enhanced dashboard with icons
-- Breadcrumb navigation
-- Real-time validation
-- Improved error messages
-
-### Phase 2 (Enhanced)
-- Search/filter functionality
-- Command history
-- Progress indicators
-- Cost estimation
-
-### Phase 3 (Polish)
-- Help overlay
-- Quick actions
-- Recent commands
-- Fuzzy search
+```
+┌─ SCILLA > Create Vote Account ─────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Error: Insufficient funds                                                 │
+│                                                                            │
+│  Required: 0.0282 SOL                                                      │
+│  Available: 0.0100 SOL                                                     │
+│  Short: 0.0182 SOL                                                         │
+│                                                                            │
+│  1  Request airdrop                                                        │
+│  2  Try again                                                              │
+│  3  Back to menu                                                           │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-3] select  [Esc] back                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## Technical Considerations
+## Stake Delegation
 
-### Libraries to Consider:
-- **ratatui**: Modern TUI framework (vs tui-rs)
-- **crossterm**: Better cross-platform support
-- **fuzzy-matcher**: For search functionality
-- **serde**: State persistence between sessions
+```
+┌─ SCILLA > Delegate Stake ──────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Stake Account                                                             │
+│  > ./stake-keypair.json                                                    │
+│                                                                            │
+│  Vote Account                                                              │
+│  > GxN9rK2pB3vQ8fL5hJ4mW7sT1zC6yD2xE8uF9gH0iA                             │
+│                                                                            │
+│  Amount (SOL)                                                              │
+│  > 10.0                                                                    │
+│                                                                            │
+│  Cost: ~0.00001 SOL                                                        │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [Enter] submit  [Esc] back  [Tab] next field                              │
+└────────────────────────────────────────────────────────────────────────────┘
+```
 
-### Performance:
-- Dirty-checking for partial redraws
-- Debounce keyboard input
-- Async validation to avoid blocking
-- Background refresh without UI freezing
+---
 
-### Testing:
-- Unit tests for validation logic
-- Integration tests for state machine
-- Snapshot tests for UI rendering
+## Validator Status
+
+```
+┌─ SCILLA > Validator Status ────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Validator                                                                 │
+│  GxN9rK2pB3vQ8fL5hJ4mW7sT1zC6yD2xE8uF9gH0iA                               │
+│                                                                            │
+│  Status          Active                                                    │
+│  Commission      5%                                                        │
+│  Epoch Credits   123,456                                                   │
+│  Last Vote       12,345,678                                                │
+│  Stake           1,234.5 SOL                                               │
+│                                                                            │
+│  1  Update commission                                                      │
+│  2  Withdraw funds                                                         │
+│  3  Deactivate                                                             │
+│  4  Back to menu                                                           │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-4] select  [r] refresh  [Esc] back                                      │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Account Balance
+
+```
+┌─ SCILLA > Account Balance ─────────────────────────────────────────────────┐
+│ devnet │ Connected                                                         │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Wallet Address                                                            │
+│  > 7xM3j9fLmNp2qRs5tUv8wXy1zA4bC7dE0fG3hI6jK9lP                           │
+│                                                                            │
+│  Balance         12.5 SOL                                                  │
+│  Rent Reserved   0.0014 SOL                                                │
+│  Available       12.4986 SOL                                               │
+│                                                                            │
+│  1  Check another account                                                  │
+│  2  Request airdrop                                                        │
+│  3  Back to menu                                                           │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-3] select  [r] refresh  [Esc] back                                      │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Switch Cluster
+
+```
+┌─ SCILLA > Switch Cluster ──────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  Current: devnet                                                           │
+│                                                                            │
+│  1  mainnet-beta                                                           │
+│  2  devnet                                                                 │
+│  3  testnet                                                                │
+│  4  localnet                                                               │
+│  5  Custom RPC                                                             │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-5] select  [Esc] back                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Configuration
+
+```
+┌─ SCILLA > Configuration ───────────────────────────────────────────────────┐
+│ devnet │ 12.5 SOL │ Connected                                              │
+├────────────────────────────────────────────────────────────────────────────┤
+│                                                                            │
+│  1  Set default keypair                                                    │
+│  2  Set RPC URL                                                            │
+│  3  Set commitment level                                                   │
+│  4  View all settings                                                      │
+│  5  Reset to defaults                                                      │
+│  6  Back to menu                                                           │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [1-6] select  [Esc] back                                                   │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Help Overlay
+
+```
+┌─ SCILLA > Help ────────────────────────────────────────────────────────────┐
+│                                                                            │
+│  Navigation                                                                │
+│  1-9       Select menu option                                              │
+│  Enter     Submit form / confirm                                           │
+│  Esc       Go back / cancel                                                │
+│  Tab       Next field                                                      │
+│  q         Quit application                                                │
+│                                                                            │
+│  Actions                                                                   │
+│  c         Copy address/transaction                                        │
+│  r         Refresh current view                                            │
+│  h         Show this help                                                  │
+│                                                                            │
+│  Tips                                                                      │
+│  - Press number keys without Enter                                         │
+│  - Use Tab to move between form fields                                     │
+│  - Esc always goes back one level                                          │
+│                                                                            │
+├────────────────────────────────────────────────────────────────────────────┤
+│ [Esc] close                                                                │
+└────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## Key Improvements Over Original
+
+1. **Number Selection**: Press `1-9` for instant selection (no Enter needed)
+2. **Single-Key Actions**: `c` copy, `r` refresh, `h` help, `q` quit
+3. **Flat Hierarchy**: Maximum 2 levels deep - menu > action
+4. **Minimal Visual Noise**: No emojis, icons, or decorative elements
+5. **Consistent Layout**: Same structure every screen
+6. **Smart Defaults**: Common values pre-filled
+7. **Zero Cognitive Load**: Every option numbered, every key labeled
+8. **Fast Navigation**: Esc always goes back, Tab moves forward
+
+## Keyboard Map
+
+```
+Numbers (1-9)    Direct selection
+Enter            Submit / Confirm
+Esc              Back / Cancel
+Tab              Next field
+c                Copy
+r                Refresh
+h                Help
+q                Quit
+```
+
+---
+
+This design follows the lazygit philosophy: make the most common actions require the fewest keystrokes, use numbers for selection, and keep the interface clean and predictable.
+

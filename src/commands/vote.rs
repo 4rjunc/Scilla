@@ -2,7 +2,6 @@ use {
     crate::{
         ScillaContext,
         commands::CommandFlow,
-        error::ScillaResult,
         misc::helpers::{
             Commission, SolAmount, build_and_send_tx, fetch_account_with_epoch, lamports_to_sol,
             read_keypair_from_path,
@@ -11,7 +10,6 @@ use {
         ui::show_spinner,
     },
     anyhow::{anyhow, bail},
-    comfy_table::{Cell, Table, presets::UTF8_FULL},
     console::style,
     solana_keypair::Signer,
     solana_pubkey::Pubkey,
