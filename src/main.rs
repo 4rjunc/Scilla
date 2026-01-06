@@ -12,8 +12,8 @@ pub mod ui;
 
 #[tokio::main(flavor = "multi_thread")]
 async fn main() -> anyhow::Result<()> {
-    let config = ScillaConfig::load().await?;
-    let ctx = ScillaContext::from_config(config)?;
+    let config = ScillaConfig::load()?;
+    let ctx = ScillaContext::try_from(config)?;
 
     tui::run(ctx).await?;
 

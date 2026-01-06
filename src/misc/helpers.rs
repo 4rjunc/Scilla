@@ -80,6 +80,25 @@ impl FromStr for SolAmount {
     }
 }
 
+pub async fn check_minimum_balance(
+    ctx: &ScillaContext,
+    payer: &Pubkey,
+    required_lamports: u64,
+) -> anyhow::Result<()> {
+    let payer_balance = ctx.rpc().get_balance(payer).await?;
+
+    if payer_balance < required_lamports {
+        bail!(
+            "Insufficient balance\nRequired: {} SOL\nAvailable: {} SOL\nShort: {} SOL",
+            required_lamports as f64 / 1e9,
+            payer_balance as f64 / 1e9,
+            (required_lamports - payer_balance) as f64 / 1e9
+        );
+    }
+
+    Ok(())
+}
+
 pub fn sol_to_lamports(sol: f64) -> u64 {
     (sol * LAMPORTS_PER_SOL as f64) as u64
 }
@@ -180,6 +199,13 @@ pub fn decode_base58(encoded: &str) -> anyhow::Result<Vec<u8>> {
             e
         )
     })
+}
+
+pub fn short_pubkey(pk: &Pubkey) -> String {
+    let s = pk.to_string();
+    let prefix = &s[..4];
+    let suffix = &s[s.len() - 3..];
+    format!("{prefix}...{suffix}")
 }
 
 #[cfg(test)]
